@@ -1,0 +1,51 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'rx_dart_items_controller.dart';
+
+// **************************************************************************
+// StoreGenerator
+// **************************************************************************
+
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+
+mixin _$RxDartItemsController on _RxDartItemsControllerBase, Store {
+  Computed<int> _$totalCheckedComputed;
+
+  @override
+  int get totalChecked =>
+      (_$totalCheckedComputed ??= Computed<int>(() => super.totalChecked,
+              name: '_RxDartItemsControllerBase.totalChecked'))
+          .value;
+
+  final _$_RxDartItemsControllerBaseActionController =
+      ActionController(name: '_RxDartItemsControllerBase');
+
+  @override
+  dynamic addItem(ItemModel value) {
+    final _$actionInfo = _$_RxDartItemsControllerBaseActionController
+        .startAction(name: '_RxDartItemsControllerBase.addItem');
+    try {
+      return super.addItem(value);
+    } finally {
+      _$_RxDartItemsControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic removeItem(ItemModel value) {
+    final _$actionInfo = _$_RxDartItemsControllerBaseActionController
+        .startAction(name: '_RxDartItemsControllerBase.removeItem');
+    try {
+      return super.removeItem(value);
+    } finally {
+      _$_RxDartItemsControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  String toString() {
+    return '''
+totalChecked: ${totalChecked}
+    ''';
+  }
+}
