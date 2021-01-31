@@ -3,8 +3,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:injectable_app/app/modules/home/home_module.dart';
 import 'package:injectable_app/app/modules/new_account/new_account_module.dart';
 import 'package:injectable_app/app/modules/new_account/new_account_page.dart';
+import 'package:injectable_app/app/modules/user_detail/user_detail_page.dart';
 
 import 'app_widget.dart';
+import 'modules/user_detail/user_detail_module.dart';
 
 class AppModule extends MainModule {
   @override
@@ -21,6 +23,11 @@ class AppModule extends MainModule {
           NewAccountPage.route,
           transition: TransitionType.fadeIn,
           module: NewAccountModule(),
+        ),
+        ModularRouter(
+          UserDetailPage.route,
+          transition: TransitionType.fadeIn,
+          module: UserDetailModule(),
         ),
       ];
 

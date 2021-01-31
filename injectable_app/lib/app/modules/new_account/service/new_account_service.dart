@@ -1,3 +1,5 @@
+import 'package:injectable_app/core/models/user.dart';
+
 abstract class NewAccountService {
-  Future createUserAccount();
+  Future<User> createUserAccount(User user);
 }
