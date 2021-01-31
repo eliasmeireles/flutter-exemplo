@@ -1,14 +1,18 @@
 import 'package:clubehealth/rest_client.dart';
 import 'package:clubehealth/task.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:logger/logger.dart';
 import 'package:dio/dio.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'custom_interceptor.dart';
 
 final logger = Logger();
 
-void main() {
+void main() async {
+  var docPath = await getApplicationDocumentsDirectory();
+  Hive.init(docPath.path);
   runApp(MyApp());
 }
 

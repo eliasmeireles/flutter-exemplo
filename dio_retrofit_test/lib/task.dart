@@ -6,6 +6,7 @@ part 'task.g.dart';
 @JsonSerializable()
 @CustomDateTimeConverter()
 class Task {
+
   String id;
   String name;
   String avatar;
