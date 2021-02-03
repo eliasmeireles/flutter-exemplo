@@ -1,0 +1,10 @@
+modular_ui_test_exemplo/lib/main.dart
+modular_ui_test_exemplo/lib/app/app_module.dart
+modular_ui_test_exemplo/lib/app/app_widget.dart
+modular_ui_test_exemplo/lib/app/modules/home/home_module.dart
+modular_ui_test_exemplo/lib/app/app_controller.dart
+modular_ui_test_exemplo/lib/app/modules/home/home_page.dart
+modular_ui_test_exemplo/test/app/modules/home/home_page_test.dart
+modular_ui_test_exemplo/test/app/app_controller_test.dart
+modular_ui_test_exemplo/lib/app/modules/home/home_controller.dart
+modular_ui_test_exemplo/test/app/modules/home/home_controller_test.dart
