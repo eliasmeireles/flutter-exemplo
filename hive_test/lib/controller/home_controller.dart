@@ -14,13 +14,16 @@ class HomeController {
   final User user = new User(
       idUser: "b0578f43-3262-4590-b588-c393f4a06b6e", name: "Elias Meireles");
 
-  ValueNotifier<bool> read = ValueNotifier<bool>(false);
+  ValueNotifier<List<Message>> messages = ValueNotifier<List<Message>>([]);
 
   Future init() async {
-    await Hive.openBox(HiveConfig.boxMessages).then((value) {
-      boxMessages = value;
-      read.value = true;
-    });
+    await Hive.openBox<Message>(HiveConfig.boxMessages).then(
+      (value) {
+        boxMessages = value;
+        boxMessages.listenable().addListener(() => _messageChangeListener());
+        _messageChangeListener();
+      },
+    );
   }
 
   void send() async {
@@ -28,10 +31,16 @@ class HomeController {
     messageInputTextController.text = '';
 
     Message message = new Message(
-        user: user,
-        idMessage: Uuid().v4(),
-        content: messageContent);
+        user: user, idMessage: Uuid().v4(), content: messageContent);
 
     await boxMessages.put('${DateTime.now().microsecondsSinceEpoch}', message);
+  }
+
+  void _messageChangeListener() {
+    messages.value = boxMessages.values.toList();
+  }
+
+  void dispose() {
+    boxMessages.listenable().removeListener(() => _messageChangeListener());
   }
 }

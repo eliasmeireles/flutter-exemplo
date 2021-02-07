@@ -4,6 +4,8 @@ import 'package:hive_test/hive/hive_config.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive_test/model/message.dart';
+import 'package:hive_test/widgets/delete_dismissible_background.dart';
+import 'package:hive_test/widgets/message_list_tile.dart';
 
 void main() async {
   runApp(MyApp());
@@ -53,101 +55,33 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Expanded(
               child: ValueListenableBuilder(
-                valueListenable: controller.read,
-                builder: (_, value, wid) => !value
-                    ? CircularProgressIndicator()
-                    : ValueListenableBuilder(
-                        valueListenable:
-                            Hive.box(HiveConfig.boxMessages).listenable(),
-                        builder: (_, Box box, wdg) => ListView.builder(
-                            itemCount: box.values.length,
-                            itemBuilder: (context, index) {
-                              var message =
-                                  box.values.elementAt(index) as Message;
-                              return Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 8.0, left: 4, right: 4),
-                                child: Dismissible(
-                                  confirmDismiss: (call) async {
-                                    dialogueConfirmation(context, message);
-                                    return false;
-                                  },
-                                  onDismissed: (DismissDirection direction) =>
-                                      message.delete(),
-                                  background: Container(
-                                    color: Colors.red,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 20, right: 20),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Icon(
-                                            Icons.delete_forever,
-                                            size: 35,
-                                            color: Colors.white,
-                                          ),
-                                          Icon(
-                                            Icons.delete_forever,
-                                            size: 35,
-                                            color: Colors.white,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  key: UniqueKey(),
-                                  direction: DismissDirection.horizontal,
-                                  child: Container(
-                                    width: double.infinity,
-                                    child: Card(
-                                      color: Colors.white,
-                                      margin: EdgeInsets.all(0),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(16.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              message.user.name,
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              message.createdAt.toString(),
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Container(
-                                              padding: EdgeInsets.all(8),
-                                              margin: EdgeInsets.only(top: 8),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.grey[300],
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          12)),
-                                              child: Text(message.content),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }),
-                      ),
+                valueListenable: controller.messages,
+                builder: (controller, List<Message> messages, wdg) {
+                  return ListView.builder(
+                    itemCount: messages.length,
+                    itemBuilder: (context, index) {
+                      var message = messages[index];
+                      return Padding(
+                        padding:
+                            const EdgeInsets.only(top: 8.0, left: 4, right: 4),
+                        child: Dismissible(
+                          confirmDismiss: (call) async {
+                            // dialogueConfirmation(context, message);
+                            return true;
+                          },
+                          onDismissed: (DismissDirection direction) =>
+                              message.delete(),
+                          background: DeleteDismissibleBackground(),
+                          key: UniqueKey(),
+                          direction: DismissDirection.horizontal,
+                          child: MessageListTile(
+                            message: message,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ),
             Divider(
@@ -201,5 +135,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
+  }
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }
