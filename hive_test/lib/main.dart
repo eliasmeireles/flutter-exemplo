@@ -66,8 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             const EdgeInsets.only(top: 8.0, left: 4, right: 4),
                         child: Dismissible(
                           confirmDismiss: (call) async {
-                            // dialogueConfirmation(context, message);
-                            return true;
+                            dialogueConfirmation(context, message);
+                            return false;
                           },
                           onDismissed: (DismissDirection direction) =>
                               message.delete(),
