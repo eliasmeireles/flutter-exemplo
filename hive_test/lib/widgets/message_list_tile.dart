@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hive_test/controller/home_controller.dart';
+import 'package:hive_test/model/favorite_message.dart';
 import 'package:hive_test/model/message.dart';
 
 class MessageListTile extends StatelessWidget {
-  final Message message;
+  final FavoriteMessage message;
+  final HomeController controller;
 
-  MessageListTile({@required this.message});
+  MessageListTile({@required this.message, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -20,19 +23,43 @@ class MessageListTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                message.user.name,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                message.createdAt.toString(),
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          message.message.user.name,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          message.message.createdAt.toString(),
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    icon: message.favorite
+                        ? Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                          )
+                        : Icon(
+                            Icons.favorite_border,
+                          ),
+                    onPressed: () => controller.favoritesMessages(message),
+                  ),
+                ],
               ),
               Container(
                 padding: EdgeInsets.all(8),
@@ -40,7 +67,7 @@ class MessageListTile extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Colors.grey[300],
                     borderRadius: BorderRadius.circular(12)),
-                child: Text(message.content),
+                child: Text(message.message.content),
               ),
             ],
           ),

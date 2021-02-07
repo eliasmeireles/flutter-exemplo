@@ -3,6 +3,7 @@ import 'package:hive_test/controller/home_controller.dart';
 import 'package:hive_test/hive/hive_config.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_test/model/favorite_message.dart';
 import 'package:hive_test/model/message.dart';
 import 'package:hive_test/widgets/delete_dismissible_background.dart';
 import 'package:hive_test/widgets/message_list_tile.dart';
@@ -54,36 +55,78 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             Expanded(
-              child: ValueListenableBuilder(
-                valueListenable: controller.messages,
-                builder: (controller, List<Message> messages, wdg) {
-                  return ListView.builder(
-                    itemCount: messages.length,
-                    itemBuilder: (context, index) {
-                      var message = messages[index];
-                      return Padding(
-                        padding:
-                            const EdgeInsets.only(top: 8.0, left: 4, right: 4),
-                        child: Dismissible(
-                          confirmDismiss: (call) async {
-                            dialogueConfirmation(context, message);
-                            return false;
-                          },
-                          onDismissed: (DismissDirection direction) =>
-                              message.delete(),
-                          background: DeleteDismissibleBackground(),
-                          key: UniqueKey(),
-                          direction: DismissDirection.horizontal,
-                          child: MessageListTile(
-                            message: message,
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
+              child: StreamBuilder<List<FavoriteMessage>>(
+                  stream: controller.stream,
+                  builder: (context, snapshot) {
+                    print(snapshot.connectionState.toString());
+                    if (snapshot.connectionState == ConnectionState.active) {
+                      var messages = snapshot.data;
+                      return messages.isEmpty
+                          ? Center(
+                              child: Text('There is no messages yet!'),
+                            )
+                          : ListView.builder(
+                              itemCount: messages.length,
+                              itemBuilder: (context, index) {
+                                var message = messages[index];
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 8.0, left: 4, right: 4),
+                                  child: Dismissible(
+                                    confirmDismiss: (call) async {
+                                      dialogueConfirmation(context, message);
+                                      return false;
+                                    },
+                                    onDismissed: (DismissDirection direction) =>
+                                        message.message.delete(),
+                                    background: DeleteDismissibleBackground(),
+                                    key: UniqueKey(),
+                                    direction: DismissDirection.horizontal,
+                                    child: MessageListTile(
+                                      controller: controller,
+                                      message: message,
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }),
             ),
+            // Expanded(
+            //   child: ValueListenableBuilder(
+            //     valueListenable: controller.messages,
+            //     builder: (controller, List<Message> messages, wdg) {
+            //       return ListView.builder(
+            //         itemCount: messages.length,
+            //         itemBuilder: (context, index) {
+            //           var message = messages[index];
+            //           return Padding(
+            //             padding:
+            //                 const EdgeInsets.only(top: 8.0, left: 4, right: 4),
+            //             child: Dismissible(
+            //               confirmDismiss: (call) async {
+            //                 dialogueConfirmation(context, message);
+            //                 return false;
+            //               },
+            //               onDismissed: (DismissDirection direction) =>
+            //                   message.delete(),
+            //               background: DeleteDismissibleBackground(),
+            //               key: UniqueKey(),
+            //               direction: DismissDirection.horizontal,
+            //               child: MessageListTile(
+            //                 message: message,
+            //               ),
+            //             ),
+            //           );
+            //         },
+            //       );
+            //     },
+            //   ),
+            // ),
             Divider(
               height: 8,
             ),
@@ -109,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void dialogueConfirmation(BuildContext context, Message message) {
+  void dialogueConfirmation(BuildContext context, FavoriteMessage message) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -128,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () => Navigator.pop(context), child: Text('CANCEL')),
           FlatButton(
               onPressed: () {
-                message.delete();
+                message.message.delete();
                 Navigator.pop(context);
               },
               child: Text('YES'))
@@ -136,6 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
   @override
   void dispose() {
     controller.dispose();
