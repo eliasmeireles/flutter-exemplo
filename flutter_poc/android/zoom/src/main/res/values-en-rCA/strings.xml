@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mensagem_usuario_removido_pelo_anfitriao">You have been removed from the meeting by the host.</string>
+    <string name="videoconferencia_enserrada_pelo_anfitriao">The online meeting was ended by the host.</string>
+    <string name="mensagem_solicitcao_modo_janela">To use the minimized mode, you must have settings permission.</string>
+    <string name="falha_ao_entrar_na_video_conferencia">Could not connect to the online meeting.</string>
+    <string name="quantia_limete_de_participante_na_metting">The number of participants in the meeting has reached the maximum limit.</string>
+</resources>

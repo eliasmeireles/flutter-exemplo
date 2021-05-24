@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mensagem_usuario_removido_pelo_anfitriao">El anfitrión te ha eliminado de la reunión.</string>
+    <string name="videoconferencia_enserrada_pelo_anfitriao">La videoconferencia fue terminada por el anfitrión.</string>
+    <string name="mensagem_solicitcao_modo_janela">Para usar el modo minimizado, necesito tener este permiso en la configuración.</string>
+    <string name="falha_ao_entrar_na_video_conferencia">No se pudo conectar a la videoconferencia.</string>
+    <string name="quantia_limete_de_participante_na_metting">El número de participantes en la reunión alcanzó el límite máximo.</string>
+</resources>

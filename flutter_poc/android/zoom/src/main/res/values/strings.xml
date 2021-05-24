@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="this_app_name" translatable="false">Zoom SDK Demo</string>
+    <string name="app_name" translatable="false">COM21</string>
+    <!--    -->
+    <string name="invite_acitivity_name" translatable="false">Meeting Invite Example</string>
+    <string name="zm_rc_using_fingers_for_remote_control" translatable="false">Remotely control a desktop using gestures</string>
+    <string name="zm_rc_one_finger_tap" translatable="false">Tap with one finger</string>
+    <string name="zm_rc_one_finger_tap_description" translatable="false">Tap the screen with one finger to click the mouse</string>
+    <string name="zm_rc_one_finger_double_taps" translatable="false">Double tap with one finger</string>
+    <string name="zm_rc_one_finger_double_taps_description" translatable="false">Double tap with one finger to double click the mouse</string>
+    <string name="zm_rc_one_long_tap" translatable="false">Long press with one finger</string>
+    <string name="zm_rc_one_long_tap_description" translatable="false">Press the screen with one finger to right-click the mouse</string>
+    <string name="zm_rc_two_fingers_scroll" translatable="false">Swipe with two fingers</string>
+    <string name="zm_rc_two_fingers_scroll_description" translatable="false">Swipe with two fingers to scroll up and down</string>
+    <string name="zm_rc_two_fingers_pinch" translatable="false">Pinch with two fingers</string>
+    <string name="zm_rc_two_fingers_pinch_description" translatable="false">Pinch in and out with two fingers to zoom in and out</string>
+    <string name="zm_rc_mouse_icon" translatable="false">Mouse icon</string>
+    <string name="zm_rc_mouse_icon_description" translatable="false">Drag the mouse icon to move the remote mouse pointer</string>
+    <string name="zm_rc_tap_notice" translatable="false">Tap here to control %s\'s screen remotely</string>
+    <string name="alert_other_is_sharing" translatable="false">You cannot start screen share while the other participant is sharing.</string>
+    <string name="settings_custom_ui" translatable="false">Customized UI</string>
+    <string name="settings_switch_domain" translatable="false">Switch domain</string>
+    <string name="settings_hide_screen_share_toolbar_annotation" translatable="false">Hide annotation button in screen share</string>
+    <string name="settings_hide_screen_share_toolbar_stopshare" translatable="false">Hide stopshare button in screen share</string>
+
+    <string name="mensagem_usuario_removido_pelo_anfitriao">Você foi removido da reunião pelo anfitrião.</string>
+    <string name="videoconferencia_enserrada_pelo_anfitriao">A videoconferência foi encerrada pelo anfitrião.</string>
+    <string name="mensagem_solicitcao_modo_janela">Para utilizar o modo minimizado, é preciso que ative essa permissão nas configurações.</string>
+    <string name="falha_ao_entrar_na_video_conferencia">Não foi possível se conectar à videoconferência.</string>
+    <string name="quantia_limete_de_participante_na_metting">A quantidade de participantes da reunião atingiu o limite máximo.</string>
+</resources>
